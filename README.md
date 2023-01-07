@@ -9,14 +9,26 @@
 
 </div>
 
-## Usage
-
+## Installation
+### Using git
+```bash
+git clone https://github.com/akashrchandran/snakifyer
+```
+### Change directory
+```bash
+cd snakifyer
+```
 ### Install requirements
 ```bash
 pip install -r requirements.txt
 ```
-### running the program
-```BASH
-python3 main.py //linux
-py main.py //windows
+## Running
+
+### Windows
+```batch
+py main.py
+```
+### Linux Or Termux
+```bash
+python3 main.py
 ```
