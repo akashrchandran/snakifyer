@@ -1,6 +1,9 @@
-import requests
 import re
+
+import requests
 from bs4 import BeautifulSoup
+
+
 class Snakify:
     def __init__(self) -> None:
         self.session = requests.Session()
@@ -29,23 +32,40 @@ class Snakify:
     def get_ans(self, slug):
         url = f"https://snakify.org/{slug}"
         response = self.session.get(url)
-        match = re.search(r'window.tests = \[(.*?)\];', response.text)
-        answers = eval(match[1])
-        return [
-            {"stderr": "", "stdout": f'{answer["answer"]}', "exception": None}
-            for answer in answers
-        ]
+        screen_type = re.search(r'window.screenType = \'(.*?)\';', response.text)
+        if screen_type[1] == 'inout':
+            match = re.search(r'window.tests = \[(.*?)\];', response.text)
+            answers = eval(match[1])
+            return [
+                {"stderr": "", "stdout": f'{answer["answer"]}', "exception": None}
+                for answer in answers
+            ]
+        elif screen_type[1] == 'frontend':
+            match = re.search(r'window.defaultSolution = (.*?);', response.text)
+            return eval(match[1])
     
-    def submit(self, slug, link, code):
+    def submit(self, slug, code, ans):
         url = "https://snakify.org/api/v2/solution/checkAnswers"
         payload = {
             "problem": slug,
             "user_code": code,
             "language": "python",
-            "answers": self.get_ans(link)
+            "answers": ans
         }
         response = self.session.post(url, json=payload)
         return response.json()['status']
+
+    def save_progress(self, slug, ans):
+        url = "https://snakify.org/api/v2/solution/saveProgress"
+        payload = {
+            "problem": slug,
+            "user_code": ans,
+            "language": "frontend",
+            "status": "ok",
+            "reuse_submission": False
+        }
+        response = self.session.post(url, json=payload)
+        return "ok" if response.text == "{}" else "error"
     
     def get_all_problems(self):
         req = self.session.get('https://snakify.org/profile/')

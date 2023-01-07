@@ -1,7 +1,8 @@
-import core
 import json
 
-client = core.Snakify()
+import core
+
+snakifyer = core.Snakify()
 
 config = json.load(open("config.json"))
 if config["email"] == "" or config["password"] == "":
@@ -11,10 +12,14 @@ if config["email"] == "" or config["password"] == "":
     config["password"] = password
     json.dump(config, open("config.json", "w"), indent=4)
     
-client.login(config["email"], config["password"])
+snakifyer.login(config["email"], config["password"])
 
-problems = client.get_all_problems()
+problems = snakifyer.get_all_problems()
 for problem in problems:
-    code = client.get_code(problem["slug"])
-    result = client.submit(problem["slug"], problem['link'], code)
+    code = snakifyer.get_code(problem["slug"])
+    ans = snakifyer.get_ans(problem["link"])
+    if (isinstance(ans, list)):
+        result = snakifyer.submit(problem["slug"], code, ans)
+    elif (isinstance(ans, str)):
+        result = snakifyer.save_progress(problem["slug"], ans)
     print(f'{problem["name"]}....{result}')
