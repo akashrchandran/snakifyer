@@ -3,6 +3,8 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
+class AuthError(Exception):
+    pass
 
 class Snakify:
     def __init__(self) -> None:
@@ -12,6 +14,7 @@ class Snakify:
             "content-type": "application/json;charset=UTF-8",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54"
         }
+
     def login(self, email, password):
         url = "https://snakify.org/api/v2/auth/login"
         payload = {
@@ -19,7 +22,10 @@ class Snakify:
             "password": password
         }
         req = self.session.post(url, json=payload)
+        if not req.cookies.get("sessionid"):
+            raise AuthError("Invalid email and password combination")
         self.session.cookies = req.cookies
+
     def get_code(self, slug):
         url = "https://snakify.org/api/v2/problem/modelSolution"
         payload = {
