@@ -16,7 +16,7 @@ requirements = [
 
 setup(
     name=pkg_name,
-    version="1.0.0",
+    version="1.0.1",
     author="Akash R Chandran",
     author_email="chandranrakash@gmail.com",
     description="A simple to bot to automate problem submissions on snakify.org ",
@@ -32,7 +32,7 @@ setup(
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
