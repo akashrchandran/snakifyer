@@ -10,25 +10,23 @@
 </div>
 
 ## Installation
-### Using git
-```bash
-git clone https://github.com/akashrchandran/snakifyer
+### Using pip
 ```
-### Change directory
-```bash
-cd snakifyer
+pip install snakifyer
 ```
-### Install requirements
-```bash
-pip install -r requirements.txt
-```
-## Running
 
-### Windows
-```batch
-py main.py
+> some linux distributions require to mention pip version.
+
 ```
-### Linux Or Termux
-```bash
-python3 main.py
+pip3 install snakifyer
 ```
+# Usage
+> just run `snakifyer` on your terminal.
+```
+snakifyer
+```
+> for first time users it may ask for username and password. You have to share it once and it will get saved locally.
+<hr style="border:2px solid gray">
+
+
+![image](https://user-images.githubusercontent.com/78685510/212165621-97247489-bf02-4ba8-ac2c-8d4eeaa4b472.png)
