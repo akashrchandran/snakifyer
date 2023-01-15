@@ -6,22 +6,12 @@ from rich.emoji import Emoji
 from rich.style import Style
 
 import snakifyer.api as api
+from .cli import parse_cmd, check_config
 
 snakifyer = api.Snakify()
 console = Console()
-
-OS_CONFIG = os.environ.get("APPDATA") if os.name == "nt" else os.path.join(os.environ["HOME"], ".config")
-CONFIG_PATH = os.path.join(OS_CONFIG, "snakifyer")
-CONFIG_FILE = os.path.join(CONFIG_PATH, "config.json")
-if not os.path.exists(CONFIG_FILE):
-    os.makedirs(CONFIG_PATH, exist_ok=True)
-    email = input("Enter your email: ")
-    password = input("Enter your password: ")
-    with open(CONFIG_FILE, "w+") as f:
-        f.write(json.dumps({"email": email, "password": password}, indent=4))
-
-with open(CONFIG_FILE) as f:
-    config = json.load(f)
+config = check_config()
+parse_cmd(config)
     
 snakifyer.login(config["email"], config["password"])
 
