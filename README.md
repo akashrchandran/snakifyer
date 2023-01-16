@@ -26,7 +26,15 @@ pip3 install snakifyer
 snakifyer
 ```
 > for first time users it may ask for username and password. You have to share it once and it will get saved locally.
-<hr style="border:2px solid gray">
 
+## Using commandline arguments
+```
+snakifyer -u username -p password
+```
+# Reset config to add new account
+```
+snakifyer -r
+```
+<hr style="border:2px solid gray">
 
 ![image](https://user-images.githubusercontent.com/78685510/212165621-97247489-bf02-4ba8-ac2c-8d4eeaa4b472.png)
