@@ -85,3 +85,13 @@ class Snakify:
             }
             for link in links
         ]
+    
+    def get_all_sections(self):
+        url = "https://snakify.org/en/"
+        req = self.session.get(url)
+        soup = BeautifulSoup(req.text, 'html.parser')
+        links = soup.find(class_ = "nav nav-sidebar").find_all('li')
+        return {
+            link.get_text(strip=True): link.find('a')['href'].split('/')[-2]
+            for link in links
+        }

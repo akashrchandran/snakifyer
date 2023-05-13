@@ -1,14 +1,11 @@
-import json
-import os
-
 from rich.console import Console
 from rich.emoji import Emoji
 from rich.style import Style
 
-import snakifyer.api as api
+from snakifyer.api import Snakify
 from .cli import parse_cmd, check_config
 
-snakifyer = api.Snakify()
+snakifyer = Snakify()
 console = Console()
 config = check_config()
 parse_cmd(config)
