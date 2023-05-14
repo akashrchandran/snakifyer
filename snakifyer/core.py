@@ -10,7 +10,6 @@ snakifyer = Snakify()
 console = Console()
 config = check_config()
 parse_cmd(config)
-print(config["email"], config["password"])
 snakifyer.login(config["email"], config["password"])
 logo = '''
                                                                 ++++                                

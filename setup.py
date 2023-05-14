@@ -16,7 +16,7 @@ requirements = [
 
 setup(
     name=pkg_name,
-    version="1.0.2",
+    version="2.0.0",
     author="Akash R Chandran",
     author_email="chandranrakash@gmail.com",
     description="A simple to bot to automate problem submissions on snakify.org ",
