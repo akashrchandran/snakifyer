@@ -10,14 +10,14 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("-u",
                     "--username",
-                    metavar="USERNAME",
-                    help='username of snakify account.'
+                    metavar="Email",
+                    help='email of snakify account.'
                     )
 
 parser.add_argument("-p",
                     "--password",
                     metavar="PASSWORD",
-                    help='skip check for if it already downloaded and is available in directory. '
+                    help='password of snakify account.'
                     )
 
 parser.add_argument("-r",
@@ -31,7 +31,7 @@ parser.add_argument("-r",
 def parse_cmd(config):
     args = parser.parse_args()
     if args.username:
-        config['username'] = args.username
+        config['email'] = args.username
     if args.password:
         config['password'] = args.password
     if args.reset:
