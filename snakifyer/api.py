@@ -99,9 +99,9 @@ class Snakify:
     def get_all_problems_in_section(self, section):
         url = f"https://snakify.org/en/lessons/{section}/"
         req = self.session.get(url)
+        print(req)
         soup = BeautifulSoup(req.text, 'html.parser')
         links = soup.find_all(class_ = "problem-available")
-        soup.find_all(class_ = ["problem-status__", "problem-status__error"])
         return [
             {
                 'name': link.get_text(strip=True),

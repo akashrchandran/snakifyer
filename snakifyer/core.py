@@ -1,3 +1,4 @@
+import os
 from rich.console import Console
 from rich.emoji import Emoji
 from rich.style import Style
@@ -11,9 +12,59 @@ config = check_config()
 parse_cmd(config)
     
 snakifyer.login(config["email"], config["password"])
+logo = '''
+                                                                ++++                                
+                                                               ++++++                               
+                ++++                                           ++++++                               
+             ++++++++++                                        ++ +++                               
+        %++++++++++++++                                       +++ +++                               
+      +++++++++++++++++                      ++               +++ +++                               
+    ++++++++++  ;++                         ++++              ++* +++                               
+  ++++++++                                  +++;       +++    +++                                   
+ ++++++                                     +++        +;+   +++                                    
++++++                 ;                    *+++        +++   +++              +                     
+++++                 +++           ++++    +++               +++++++         +++                    
+++++                 +++ ++       +++++++  +++    ++   ;+   +++++++++        +++  +++++      ++     
++++                  +++++++     ++++++++  +++ *+++++  +++++++++++++        ++++ ++++++++    +++++++
++++                  ++++++++   *+++  +++ +++++++++++  +++++++++   ;++      +++ ++++++++++   +++++++
+++++;                ++++?+++   +++   +++ +++++++++    +++++++++   +++      +++;+++   +++++  +++++++
++++++++++            ++++ +++  *++;  *++  +++++        +++   +++   +++     +++ ++++++++++++  ++++ ++
+ ++++++++++++       +++++ +++  +++   +++  +++++++      +++   +++   ++++    +++ ++++++++++++  +++   +
+   +++++++++++++    ++++  ++++ +++   +++  ++++++++     +++   +++   ++++   ;++  +++++++++++*  +++    
+        ++++++++++  ++++   +++ +++  ++++; +++  +++++   +++   +++    +++   +++  +++;          +++    
+           ++++++++ ++++   +++ +++ ++++++ +++   *++++  +++   +++    ++++  ++*  +++     ;++   +++    
+              +++++++++    +++ ++++++++++ +++     ++++ +++   +++     +++ +++   ++++    +++;  +++    
+                +++++++    +++;++++++++++ +++      +++++++   +++%    +++++++    ++++  ++++  ;+++    
+       +++++++  +++++++    %+++++++++ +++++++       ++++++   ++++     +++++     ;+++++++++  ;+++    
+     ++++++++++++++++++     +++ ++++   ++++++          +++    +++     +++++      ++++++++   ++++    
+   *++++++++++++++++++                  ++ ++           ++     *+      +++         ++++      ++     
+  +++++++++++++++++++            +                                    ++++                          
+ ++++++;       ++++++++       ++++                                    +++                           
+ ++++        ++++++++++++++++++++                                    ++++                           
+ +++       +++++?   +++++++++++                                      ++++                           
+ +++    ;++++++                                                      +++                            
+ ++++++++++++*                                                      ++++                            
+  ++++++++++                                                        +++                             
+    +++++                                                           +++                             
+                                                                   ++++                             
+                                                                   ++++                             
+                                                                   ++++                             
+'''
 
 def main():
-    problems = snakifyer.get_all_problems()
+    print(logo, end="\n\n")
+    console.print("[bright_green]Welcome to Snakifyer, select one option from below to continue")
+    console.print("[bold yellow]1. Solve all problems in a specific section")
+    console.print("[bold yellow]2. Solve all problems", end="\n\n")
+    choice = console.input("[bold red]Enter your choice: ")
+    print()
+    if choice == '1':
+        sections = snakifyer.get_all_sections()
+        console.print("[yellow]" + "\n".join(sections.keys()), end="\n\n")
+        choice = list(sections.keys())[int(console.input("[bold red]Enter the choice: ")) - 1]
+        problems = snakifyer.get_all_problems_in_section(sections[choice])
+    elif choice == '2':
+        problems = snakifyer.get_all_problems()
     with console.status("Starting the Interface", spinner_style=Style(color='yellow')) as status:
         for problem in problems:
             status.update(f"[bold yellow]Working on {problem['name']}")
