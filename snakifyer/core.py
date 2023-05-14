@@ -10,7 +10,7 @@ snakifyer = Snakify()
 console = Console()
 config = check_config()
 parse_cmd(config)
-    
+print(config["email"], config["password"])
 snakifyer.login(config["email"], config["password"])
 logo = '''
                                                                 ++++                                
@@ -65,6 +65,8 @@ def main():
         problems = snakifyer.get_all_problems_in_section(sections[choice])
     elif choice == '2':
         problems = snakifyer.get_all_problems()
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(logo)
     with console.status("Starting the Interface", spinner_style=Style(color='yellow')) as status:
         for problem in problems:
             status.update(f"[bold yellow]Working on {problem['name']}")
